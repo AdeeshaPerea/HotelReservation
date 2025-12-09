@@ -13,32 +13,43 @@ public class RoomService {
     @Autowired
     private RoomRepository roomRepository;
 
+    // CREATE
     public Room addRoom(Room room) {
         return roomRepository.save(room);
     }
 
-    public List<Room> getAllRooms() {
-        return roomRepository.findAll();
-    }
+    // UPDATE
+    public Room updateRoom(Long id, Room roomDetails) {
+        Room room = roomRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Room not found with id " + id));
 
-    public List<Room> getAvailableRooms() {
-        return roomRepository.findByStatus("available");
-    }
-
-    public Room updateRoom(int id, Room updatedRoom) {
-        Room room = roomRepository.findById(id).orElse(null);
-        if (room == null) return null;
-
-        room.setRoomType(updatedRoom.getRoomType());
-        room.setPrice(updatedRoom.getPrice());
-        room.setStatus(updatedRoom.getStatus());
-        room.setDescription(updatedRoom.getDescription());
+        room.setType(roomDetails.getType());
+        room.setPrice(roomDetails.getPrice());
+        room.setStatus(roomDetails.getStatus());
+        room.setDescription(roomDetails.getDescription());
+        room.setMaxGuests(roomDetails.getMaxGuests());
+        room.setImages(roomDetails.getImages());
+        room.setRoomNumber(roomDetails.getRoomNumber());
 
         return roomRepository.save(room);
     }
 
-    public boolean deleteRoom(int id) {
+    // DELETE
+    public boolean deleteRoom(Long id) {
+        if (!roomRepository.existsById(id)) {
+            return false;
+        }
         roomRepository.deleteById(id);
         return true;
+    }
+
+    // GET BY ID
+    public Room getRoomById(Long id) {
+        return roomRepository.findById(id).orElse(null);
+    }
+
+    // GET ALL
+    public List<Room> getAllRooms() {
+        return roomRepository.findAll();
     }
 }

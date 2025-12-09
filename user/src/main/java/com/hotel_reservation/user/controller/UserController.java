@@ -1,53 +1,87 @@
 package com.hotel_reservation.user.controller;
 
+
 import com.hotel_reservation.user.data.User;
 import com.hotel_reservation.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 
+import java.util.List;
+
+
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/users")
-@CrossOrigin(origins = "http://localhost:3000")   // <-- ADD THIS
+@RequestMapping("/user")
 public class UserController {
+
 
     @Autowired
     private UserService userService;
 
-    // Register User
+
+    // ADD USER
+    @PostMapping("/add")
+    public User addUser(@RequestBody User user) {
+        return userService.addUser(user);
+    }
+
+
+    // UPDATE USER
+    @PutMapping("/update/{id}")
+    public User updateUser(
+            @PathVariable Long id,
+            @RequestBody User updatedUser
+    ) {
+        return userService.updateUser(id, updatedUser);
+    }
+
+
+    // DELETE USER
+    @DeleteMapping("/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        boolean deleted = userService.deleteUser(id);
+        return deleted ? "User deleted" : "User not found";
+    }
+
+
+    // GET USER BY ID
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable Long id) {
+        return userService.getUserById(id);
+    }
+
+
+    // GET ALL USERS
+    @GetMapping("/all")
+    public List<User> getAll() {
+        return userService.getAllUsers();
+    }
+
+
+    // REGISTER
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
-        User savedUser = userService.register(user);
-        return ResponseEntity.ok(savedUser);
+    public String register(@RequestBody User user) {
+        User saved = userService.register(user);
+        if (saved == null) {
+            return "Username already exists!";
+        }
+        return "Registration successful!";
     }
 
-    // Login
+
+    // LOGIN
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User loginUser) {
-        User user = userService.login(loginUser.getEmail(), loginUser.getPassword());
+    public Object login(@RequestBody User user) {
+        User loggedUser = userService.login(user.getUsername(), user.getPassword());
 
-        if (user != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.status(401).body("Invalid email or password");
-        }
-    }
 
-    // Forgot Password
-    @PutMapping("/forgot-password")
-    public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> request) {
-        String email = request.get("email");
-        String newPassword = request.get("newPassword");
-
-        User user = userService.findByEmail(email);
-
-        if (user == null) {
-            return ResponseEntity.status(404).body("Email not found");
+        if (loggedUser == null) {
+            return "Invalid username or password!";
         }
 
-        userService.updatePassword(user, newPassword);
-        return ResponseEntity.ok("Password updated successfully");
+
+        return loggedUser; // returns user object including role
     }
 }
+

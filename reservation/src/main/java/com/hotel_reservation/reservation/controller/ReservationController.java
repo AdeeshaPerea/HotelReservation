@@ -1,71 +1,81 @@
 package com.hotel_reservation.reservation.controller;
 
+
 import com.hotel_reservation.reservation.data.Reservation;
 import com.hotel_reservation.reservation.service.ReservationService;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
+
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/reservations")
+@RequestMapping("/reservation")
 public class ReservationController {
 
-    private final ReservationService reservationService;
 
-    // Constructor Injection (Recommended)
-    public ReservationController(ReservationService reservationService) {
-        this.reservationService = reservationService;
+    @Autowired
+    private ReservationService reservationService;
+
+
+    // -------------------- CREATE --------------------
+    @PostMapping("/create")
+    public Reservation createReservation(@RequestBody Reservation reservation) {
+        return reservationService.createReservation(reservation);
     }
 
-    // Create reservation
-    @PostMapping("/book")
-    public ResponseEntity<?> bookRoom(@RequestBody Reservation reservation) {
-        Reservation saved = reservationService.createReservation(reservation);
-        return ResponseEntity.status(201).body(saved);  // better: 201 CREATED
+
+    // -------------------- UPDATE --------------------
+    @PutMapping("/update/{id}")
+    public Reservation updateReservation(@PathVariable Long id,
+                                         @RequestBody Reservation reservation) {
+        return reservationService.updateReservation(id, reservation);
     }
 
-    // Get all reservations
-    @GetMapping("/all")
-    public ResponseEntity<List<Reservation>> getAllReservations() {
-        return ResponseEntity.ok(reservationService.getAllReservations());
+
+    // -------------------- DELETE --------------------
+    @DeleteMapping("/delete/{id}")
+    public String deleteReservation(@PathVariable Long id) {
+        return reservationService.deleteReservation(id)
+                ? "Reservation deleted"
+                : "Reservation not found";
     }
 
-    // Get reservation by ID
+
+    // -------------------- GET BY ID --------------------
     @GetMapping("/{id}")
-    public ResponseEntity<?> getReservationById(@PathVariable int id) {
-
-        Reservation reservation = reservationService.getById(id).orElse(null);
-
-        if (reservation == null) {
-            return ResponseEntity.status(404).body("Reservation not found");
-        }
-
-        return ResponseEntity.ok(reservation);
+    public Reservation getById(@PathVariable Long id) {
+        return reservationService.getById(id);
     }
 
-    // Get all reservations by User ID
+
+    // -------------------- GET ALL --------------------
+    @GetMapping("/all")
+    public List<Reservation> getAll() {
+        return reservationService.getAll();
+    }
+
+
+    // -------------------- GET BY USER --------------------
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Reservation>> getReservationsByUser(@PathVariable int userId) {
-        return ResponseEntity.ok(reservationService.getByUserId(userId));
+    public List<Reservation> getByUser(@PathVariable Long userId) {
+        return reservationService.getByUser(userId);
     }
 
-    // Get all reservations by Room ID
+
+    // -------------------- GET BY ROOM --------------------
     @GetMapping("/room/{roomId}")
-    public ResponseEntity<List<Reservation>> getReservationsByRoom(@PathVariable int roomId) {
-        return ResponseEntity.ok(reservationService.getByRoomId(roomId));
+    public List<Reservation> getByRoom(@PathVariable Long roomId) {
+        return reservationService.getByRoom(roomId);
     }
 
-    // Cancel reservation
-    @PutMapping("/cancel/{id}")
-    public ResponseEntity<String> cancelReservation(@PathVariable int id) {
 
-        Reservation cancelled = reservationService.cancelReservation(id);
-
-        if (cancelled == null) {
-            return ResponseEntity.status(404).body("Reservation not found");
-        }
-
-        return ResponseEntity.ok("Reservation cancelled");
+    // -------------------- CONFIRM RESERVATION --------------------
+    @PutMapping("/confirm/{id}")
+    public Reservation confirmReservation(@PathVariable Long id) {
+        return reservationService.confirmReservation(id);
     }
 }
+

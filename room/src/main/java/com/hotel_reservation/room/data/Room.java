@@ -3,31 +3,95 @@ package com.hotel_reservation.room.data;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "rooms")
+@Table(name = "rooms")     // ⬅️ use existing table name
 public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int roomId;
+    private Long id;       // column: id
 
-    private String roomType;
-    private double price;
-    private String status;
-    private String description;
+    private String type;   // column: type
 
-    // Getters & Setters
-    public int getRoomId() { return roomId; }
-    public void setRoomId(int roomId) { this.roomId = roomId; }
+    private Integer price; // column: price
 
-    public String getRoomType() { return roomType; }
-    public void setRoomType(String roomType) { this.roomType = roomType; }
+    private String status; // column: status
 
-    public double getPrice() { return price; }
-    public void setPrice(double price) { this.price = price; }
+    private String description; // column: description
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    @Column(name = "max_guests")
+    private Integer maxGuests;  // column: max_guests
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
+    private String images;      // column: images
+
+    @Column(name = "room_number")
+    private String roomNumber;  // column: room_number
+
+    public Room() {
+    }
+
+    // getters & setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getMaxGuests() {
+        return maxGuests;
+    }
+
+    public void setMaxGuests(Integer maxGuests) {
+        this.maxGuests = maxGuests;
+    }
+
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
 }
