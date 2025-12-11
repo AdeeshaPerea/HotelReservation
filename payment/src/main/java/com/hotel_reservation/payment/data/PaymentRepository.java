@@ -1,9 +1,10 @@
-package com.hotel_reservation.payment.data;
+package com.payment_service.payment.data;
 
-import com.hotel_reservation.payment.data.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
-import java.util.List;
+import org.springframework.stereotype.Repository;
 
-public interface PaymentRepository extends JpaRepository<Payment, Integer> {
-    List<Payment> findByReservationId(int reservationId);
+@Repository
+public interface PaymentRepository extends JpaRepository<Payment, Long> {
+    Payment findByReservationIdAndStatus(Long reservationId, String status);
+
 }

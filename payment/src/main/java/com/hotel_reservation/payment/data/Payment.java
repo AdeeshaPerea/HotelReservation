@@ -1,53 +1,42 @@
-package com.hotel_reservation.payment.data;
+package com.payment_service.payment.data;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "payments")
+@Table(name = "payment")
 public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    private int reservationId;
+    private Long reservationId;
+    private Double amount;
 
-    private double amount;
+    private String method;  // Always "CARD"
+    private String status;  // PENDING, SUCCESS, FAILED
 
-    private String paymentMethod; // e.g., "Credit Card", "PayPal"
+    private LocalDateTime createdAt;
 
-    private String status; // e.g., "Pending", "Completed", "Failed"
-
-    private LocalDateTime paymentDate;
-
-    // Constructors
     public Payment() {}
 
-    public Payment(int reservationId, double amount, String paymentMethod, String status, LocalDateTime paymentDate) {
-        this.reservationId = reservationId;
-        this.amount = amount;
-        this.paymentMethod = paymentMethod;
-        this.status = status;
-        this.paymentDate = paymentDate;
-    }
-
     // Getters & Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public int getReservationId() { return reservationId; }
-    public void setReservationId(int reservationId) { this.reservationId = reservationId; }
+    public Long getReservationId() { return reservationId; }
+    public void setReservationId(Long reservationId) { this.reservationId = reservationId; }
 
-    public double getAmount() { return amount; }
-    public void setAmount(double amount) { this.amount = amount; }
+    public Double getAmount() { return amount; }
+    public void setAmount(Double amount) { this.amount = amount; }
 
-    public String getPaymentMethod() { return paymentMethod; }
-    public void setPaymentMethod(String paymentMethod) { this.paymentMethod = paymentMethod; }
+    public String getMethod() { return method; }
+    public void setMethod(String method) { this.method = method; }
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
-    public LocalDateTime getPaymentDate() { return paymentDate; }
-    public void setPaymentDate(LocalDateTime paymentDate) { this.paymentDate = paymentDate; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
