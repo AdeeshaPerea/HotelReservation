@@ -1,0 +1,18 @@
+/* Image styling moved from inline */
+.payment-img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+}
+
+/* Optional: highlight payment methods on hover */
+.payment-method:hover {
+  background-color: #f7f7f7;
+  cursor: pointer;
+}
+
+.payment-option {
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  font-size: 1rem;
+}
