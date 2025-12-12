@@ -34,7 +34,7 @@ function Register() {
     setLoading(true);
 
     axios
-      .post("http://localhost:8001/user/add", userData)
+      .post("http://localhost:8080/api/users/add", userData)
       .then((response) => {
         console.log("User added:", response.data);
         alert("User registered successfully!");
