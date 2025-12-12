@@ -74,12 +74,12 @@ html, body {
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 8px;
-  color: #ffffff;
+  color: #be6060;
 }
 
 .section-header p {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(208, 205, 205, 0.8);
   margin-bottom: 40px;
 }
 
@@ -112,7 +112,7 @@ html, body {
   width: 60px;
   height: 60px;
   margin: 0 auto 20px;
-  background: rgba(77, 148, 255, 0.3);
+  background: rgba(84, 139, 222, 0.3);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -123,12 +123,12 @@ html, body {
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 10px;
-  color: #ffffff;
+  color: #b17676;
 }
 
 .feature-card p {
   font-size: 0.95rem;
-  color: rgba(33, 16, 129, 0.8);
+  color: rgba(10, 9, 17, 0.8);
   margin: 0;
 }
 
@@ -146,7 +146,7 @@ html, body {
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 10px;
-  color: #081455;
+  color: #be6e6e;
 }
 
 .amenities-section .section-header p {
@@ -318,4 +318,82 @@ html, body {
   .stat h4 {
     font-size: 1.9rem;
   }
+}
+/* ================================
+   GLASSMORPHIC CARDS & TABS
+   (override white backgrounds)
+================================= */
+
+/* Feature cards under "Why Choose Us?" */
+.features-section .feature-card {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Icon circle on each feature card */
+.features-section .feature-icon {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+/* Text colors on feature cards */
+.features-section .feature-card h3 {
+  color: #ffffff;
+}
+
+.features-section .feature-card p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Hover state for feature cards */
+.features-section .feature-card:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* Amenity tabs (Spa & Wellness, Modern Gym, etc.) */
+.amenities-section .amenity-tab {
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #f5f7ff;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Active tab */
+.amenities-section .amenity-tab.active {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.65);
+  color: #001a4d;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.4);
+}
+
+/* Icon color inside active tab */
+.amenities-section .amenity-tab.active svg {
+  stroke: #001a4d;
+}
+
+/* Amenity items (Sauna, Jacuzzi, etc.) */
+.amenities-section .amenity-item {
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Icon color for amenity items */
+.amenities-section .amenity-item svg {
+  stroke: #aecdff;
+}
+
+/* Hover state for amenity items */
+.amenities-section .amenity-item:hover {
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+  transform: translateY(-4px);
 }

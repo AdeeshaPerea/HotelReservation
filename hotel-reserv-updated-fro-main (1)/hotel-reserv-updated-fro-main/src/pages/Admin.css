@@ -717,3 +717,171 @@
   z-index: 40;
 }
 
+/* Color tokens for solid form surfaces */
+:root {
+  --modal-surface: #0a1f44;        /* deep navy card */
+  --modal-surface-2: #102b5c;      /* slightly lighter for sections */
+  --on-surface: #e9f2ff;           /* near-white text */
+  --field-bg: #ffffff;             /* opaque field background */
+  --field-text: #0d1b2a;           /* dark text in fields */
+  --field-border: #cfd8e3;
+  --focus-ring: rgba(77,148,255,0.35);
+  --primary: #4d94ff;
+}
+
+/* Dim the page behind the modal and accept clicks */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 10, 28, 0.65);
+  backdrop-filter: blur(2px);
+  pointer-events: auto;
+  z-index: 1990;
+}
+
+/* Solid, opaque modal surface with higher stacking */
+.modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2000;
+  background: var(--modal-surface);
+  color: var(--on-surface);
+  border: 1px solid rgba(77,148,255,0.25);
+  box-shadow: 0 14px 44px rgba(0,0,0,0.55);
+  border-radius: 14px;
+  padding: 26px;
+  max-width: 760px;
+  width: 92%;
+  max-height: 84vh;
+  overflow-y: auto;
+}
+
+/* Headings, close icon, and subtle section rows */
+.modal-content h1, 
+.modal-content h2, 
+.modal-content h3 {
+  color: #ffffff;
+}
+.modal-close {
+  color: var(--on-surface);
+}
+.modal-section {
+  background: var(--modal-surface-2);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+/* Labels and helper text on dark surface */
+.modal-content label,
+.modal-content .form-group label {
+  color: var(--on-surface);
+  font-weight: 600;
+}
+
+/* Opaque fields for maximum readability */
+.modal-content input,
+.modal-content textarea,
+.modal-content select,
+form[class*="edit"] input,
+form[class*="edit"] textarea,
+form[class*="edit"] select,
+form[class*="add"]  input,
+form[class*="add"]  textarea,
+form[class*="add"]  select {
+  background: var(--field-bg);
+  color: var(--field-text);
+  border: 1px solid var(--field-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 14px;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.05s ease;
+}
+
+.modal-content input::placeholder,
+.modal-content textarea::placeholder {
+  color: #7b8a9a;
+}
+
+/* Focus ring with theme color */
+.modal-content input:focus,
+.modal-content textarea:focus,
+.modal-content select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--focus-ring);
+  transform: translateY(-1px);
+}
+
+/* Buttons inside modal */
+.modal-content .btn,
+.modal-content .form-actions button {
+  border-radius: 10px;
+  font-weight: 600;
+}
+.modal-content .btn-primary,
+.modal-content .form-actions .btn-success {
+  background: linear-gradient(135deg, #4d94ff 0%, #003d99 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 6px 18px rgba(77,148,255,0.35);
+}
+.modal-content .btn-primary:hover,
+.modal-content .form-actions .btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(77,148,255,0.45);
+}
+
+/* Optional: solid sheet for any non‑modal add/edit forms */
+.tab-content form[class*="edit"],
+.tab-content form[class*="add"] {
+  background: var(--modal-surface);
+  color: var(--on-surface);
+  border: 1px solid rgba(77,148,255,0.25);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+/* Ensure nothing floats above the modal */
+.admin-header,
+.admin-tabs,
+.tab-content {
+  z-index: 1;
+}
+/* ================================
+   RESERVATION TABLE ALIGNMENT FIX
+   Paste BELOW all existing admin CSS
+================================= */
+
+/* Make the table container and table itself centered */
+.tab-content .table-scroll {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-inline: 0;          /* remove any side-offsets */
+  box-sizing: border-box;
+}
+
+.tab-content .admin-table {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  table-layout: auto;
+}
+
+/* Keep header, search bar and rows visually aligned */
+.tab-content {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+@media (max-width: 768px) {
+  .tab-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+ 
